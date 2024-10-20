@@ -20,6 +20,7 @@ export const getUserDetail = async (req, res) => {
     try {
         const userId = req.params.id;
         const response = await userService.getUserDetail(userId);
+
         return res.status(200).json(response);
     } catch (err) {
         return res.status(500).json({
@@ -104,22 +105,20 @@ export const updateUser = async (req, res) => {
         const id = req.params.id;
         if (!id) {
             return res.status(200).json({
-                status: 'OK',
+                status: 'ERROR',
                 message: 'Xin lỗi quý khách, chúng tôi đang bị lỗi',
             });
         }
-        console.log(req.body);
-        console.log(JSON.parse(req.body));
-        // const { name, email, phone, avatar, address } = JSON.parse(req.body);
+        const { name, email, phone, avatar, address } = req.body;
         if (!name || !email || !phone || !avatar || !address) {
             return res.status(200).json({
-                status: 'OK',
+                status: 'ERROR',
                 message: 'Thiếu dữ liệu',
             });
         }
         if (!validateEmail(email)) {
             return res.status(200).json({
-                status: 'OK',
+                status: 'ERROR',
                 message: 'Email không đúng định dạng',
             });
         }

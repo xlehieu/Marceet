@@ -125,7 +125,11 @@ export const updateUser = (id, userInfoUpdate) => {
                 });
             }
             const response = await User.findByIdAndUpdate(id, userInfoUpdate, { new: true });
-            resolve(response);
+            resolve({
+                status: 'OK',
+                message: 'Đổi thông tin thành công',
+                data: response,
+            });
         } catch (err) {
             reject(err);
         }

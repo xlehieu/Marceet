@@ -35,8 +35,7 @@ export const authUserMiddleWare = (req, res, next) => {
                 message: 'Lỗi',
             });
         }
-        if (user?.isAdmin) next();
-        if (!user?.id || user.id !== req.params.id) {
+        if (!user?.id || user.id !== req.params.id || !user.isAdmin) {
             return res.status(404).json({
                 status: 'ERROR',
                 message: 'Authentication error',
