@@ -89,15 +89,10 @@ export const loginUser = (userInfo) => {
                 id: userCheck.id,
                 isAdmin: userCheck.isAdmin,
             });
-            const refresh_token = await JWTService.generalRefreshToken({
-                id: userCheck.id,
-                isAdmin: userCheck.isAdmin,
-            });
             resolve({
                 status: 'OK',
                 message: 'Đăng nhập thành công',
-                access_token,
-                refresh_token,
+                access_token: `Bearer ${access_token}`,
             });
         } catch (err) {
             reject(err);
@@ -140,7 +135,6 @@ export const deleteUser = (id) => {
         try {
             const checkId = await User.findById(id);
             if (checkId) {
-                console.log(id);
                 const response = await User.delete({ _id: id });
                 if (response.matchedCount > 0)
                     resolve({

@@ -1,8 +1,9 @@
 import Product from '../models/ProductModel.js';
 
-export const getAllProduct = (limit = 5, page = 0) => {
+export const getAllProduct = (limit = 1, page = 0) => {
     return new Promise(async (resolve, reject) => {
         try {
+            page = parseInt(page);
             const totalProduct = await Product.countDocuments();
             const allProduct = await Product.find()
                 .sort({})

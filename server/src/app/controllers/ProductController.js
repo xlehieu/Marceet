@@ -3,7 +3,7 @@ import * as ProductService from '../services/ProductService.js';
 export const getAllProduct = async (req, res) => {
     try {
         const { limit, page } = req.query;
-        const response = await ProductService.getAllProduct(limit, page - 1);
+        const response = await ProductService.getAllProduct(limit, page);
         return res.status(200).json(response);
     } catch (err) {
         return res.status(500).json({
@@ -32,8 +32,8 @@ export const getProductDetail = async (req, res) => {
 };
 export const createProduct = async (req, res) => {
     try {
-        const { name, description, price, quantity, thumb, category } = req.body;
-        if (!name || !description || !price || !quantity || !thumb || !category) {
+        const { name, description, price, discount, quantity, thumb, category } = req.body;
+        if (!name || !description || !price || !discount || !quantity || !thumb || !category) {
             return res.status(200).json({
                 status: 'OK',
                 message: 'Incomplete data',
